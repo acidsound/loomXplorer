@@ -7,21 +7,28 @@ html
     link(rel="stylesheet", href="main.styl")
     title LoomXplorer
   body
-    #blocks
-      div.header
-        .row
-          .head
-            | Block Height
-          .desc
-            | Detail
-      ul#blockMeta
-        li.row.hash.obj
-          .head loading
-          .desc
-            .transaction
-            .since
-            .validator
-              span.title Validator
-              span.link 
-    pre#blockDetail
+    .container
+      #blocks
+        h5 Block information
+        div.header
+          .row
+            .head
+              | Block Height
+            .desc
+              | Detail
+        ul#blockMeta
+          li.row.hash.obj
+            .head loading
+            .desc
+              .transaction
+              .since
+              .validator
+                span.title Validator
+                span.link 
+      #blockDetail
+        h5
+          | Transaction Detail
+        .blockHeight
+        .txDetail
+  
     script(src="./main.js")
