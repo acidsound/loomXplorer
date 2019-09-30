@@ -1,26 +1,68 @@
-.obj
-  display: none !important
 
+
+body
+  margin 0
+  padding 0
+
+
+.obj
+  display none !important
+
+.nav
+  padding 1rem
+  background-color #9AD1E1
+  color black
+  font-weight 900
+  .logo
+    margin 1rem
+    display flex
+    img
+      max-width 3rem
+      height 3rem
+      padding .5rem
+
+.container
+  padding 1rem
+  margin 1rem
+
+  display flex
+  .header
+    font-weight bolder
+    margin-bottom 2rem
+  div
+    width 50%
+
+#blocks,#blockDetail
+  margin 2rem
+  padding 2rem
+  box-shadow 0 0 40px #ddd
 
 #blocks
   ul#blockMeta,.header
-
-    font-weight: bolder
-    padding-left: 0
-    padding-bottom: 2rem
+    padding-left 0
+    .hash
+      border 1px dashed #ddd
+      padding 1rem
     .row
-      display: flex
-      .logo
-        img
-          height: 2rem
-          width: 2rem
-          padding: .4rem
+      display flex
       .head
-        width: 6em
-        margin-left: 0
-        padding-left: 0
+        width 7em
+        margin-left 0
+        padding-left 0
       .desc
-        margin-left: 1em
+        margin-left 1em
         .validator
+          padding .5rem
+          span.title
+            background-color #9AD1E1
+            padding .5rem 1rem .5rem 1rem
+            border-radius .25rem
+            color white
+            font-weight:bolder;
           .link
-            padding-left: 1em
+            padding-left 1em
+        .since
+          text-align right
+#blockDetail
+  span
+    margin-right 1em
