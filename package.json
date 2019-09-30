@@ -2,8 +2,13 @@
   "name": "loomxplorer",
   "version": "1.0.0",
   "main": "index.html",
+  "scripts": {
+    "build": "parcel build index.pug"
+  },
   "license": "MIT",
   "devDependencies": {
+    "cssnano": "^4.1.10",
+    "parcel": "^1.12.3",
     "pug": "^2.0.4",
     "stylus": "^0.54.7"
   }
