@@ -27,8 +27,11 @@ const onBlockClickHandler = async e => {
   console.log("TxHash", txHash)
   const tx = await afetch(`${cmds.endpoint}${cmds.tx}0x${txHash}`)
   console.log("tx", tx)
-  document.querySelector("#blockDetail>.blockHeight").textContent = dataId
-  document.querySelector("#blockDetail>.txDetail").textContent = JSON.stringify(tx, null, 2)
+  document.querySelector("#blockDetail .blockHeight").textContent = dataId
+  if (!tx) return
+  document.querySelector("#blockDetail .txDetail>.hash>.hash").textContent = tx.hash
+  document.querySelector("#blockDetail .txDetail>.result>.info").textContent = tx.tx_result.info
+  document.querySelector("#blockDetail .txDetail>.result>.data").textContent = tx.tx_result.data
 }
 
 const getSinceFrom = since => formatDistance(Date.parse(since), new Date())
