@@ -1,0 +1,27 @@
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/gh/acidsound/Tle-CSS@master/dist/tle.css")
+    link(rel="stylesheet", href="main.styl")
+    title LoomXplorer
+  body
+    #blocks
+      div.header
+        .row
+          .head
+            | Block Height
+          .desc
+            | Detail
+      ul#blockMeta
+        li.row.hash.obj
+          .head loading
+          .desc
+            .transaction
+            .since
+            .validator
+              span.title Validator
+              span.link 
+    pre#blockDetail
+    script(src="./main.js")

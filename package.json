@@ -1,0 +1,10 @@
+{
+  "name": "loomxplorer",
+  "version": "1.0.0",
+  "main": "index.html",
+  "license": "MIT",
+  "devDependencies": {
+    "pug": "^2.0.4",
+    "stylus": "^0.54.7"
+  }
+}
