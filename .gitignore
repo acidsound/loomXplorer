@@ -4,3 +4,4 @@ dist/
 .cache
 *.lock
 *.log
+.idea/
