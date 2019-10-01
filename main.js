@@ -11,7 +11,7 @@ const cmds = {
 }
 
 let bs = {}
-let handle
+let isStop = false
 const afetch = async (url, options={})=>
   (await (await fetch(url, options)).json()).result
 
@@ -59,16 +59,23 @@ const updateLoop = async ()=> {
     let bh = +bs.status["sync_info"]["latest_block_height"]
     bs.blocks = await getBlocks({from: bh-9, to: +bh})
     updateHashLists({blockMetas: bs.blocks.block_metas})
+    if (!isStop) {
+      nextLoop();
+    }
   }
 }
-window.stopTimer=()=> {
-  clearInterval(handle)
+window.stopLoop=()=> {
+  isStop = true
 }
-window.startTimer=()=>{
-  handle = setInterval(updateLoop, 1000)
+window.startLoop=()=> {
+  isStop = false
+  updateLoop()
+}
+window.nextLoop=()=>{
+  setTimeout(updateLoop, 1000)
 }
 const initApps = async ()=>{
   console.log(+(new Date()), "init Apps")
-  startTimer()
+  updateLoop()
 }
 document.addEventListener('DOMContentLoaded', initApps);
