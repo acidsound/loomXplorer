@@ -32,7 +32,7 @@ h1, h2, h3, h4, h5, h6
   .header
     font-weight bolder
     margin-bottom 2rem
-  div
+  > div
     width 50%
 
 #blocks,#blockDetail
@@ -67,5 +67,8 @@ h1, h2, h3, h4, h5, h6
         .since
           text-align right
 #blockDetail
+  span:first-child
+    width 6em
+    display inline-block
   span
     margin-right 1em
