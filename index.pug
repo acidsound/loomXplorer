@@ -7,9 +7,14 @@ html
     link(rel="stylesheet", href="main.styl")
     title LoomXplorer
   body
-    .container
-      #blocks
+    .nav
+      .logo
+        img(src="/public/loom.svg")
         h5 Block information
+  
+    .container
+    
+      #blocks
         div.header
           .row
             .head
@@ -21,10 +26,11 @@ html
             .head loading
             .desc
               .transaction
-              .since
+              
               .validator
                 span.title Validator
                 span.link 
+              .since  
       #blockDetail
         h5
           | Transaction Detail

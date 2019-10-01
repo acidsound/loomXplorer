@@ -34,7 +34,7 @@ const onBlockClickHandler = async e => {
   document.querySelector("#blockDetail .txDetail>.result>.data").textContent = tx.tx_result.data
 }
 
-const getSinceFrom = since => formatDistance(Date.parse(since), new Date())
+const getSinceFrom = since => formatDistance(Date.parse(since), new Date(), {includeSeconds:true})
 const updateHashLists = ({blockMetas})=> {
   const list = document.querySelector("#blockMeta")
   document.querySelectorAll("#blockMeta .item").forEach(o=>o.remove())
@@ -43,7 +43,7 @@ const updateHashLists = ({blockMetas})=> {
     node.classList.remove("obj")
     node.classList.add("item")
     node.setAttribute("data-id", v.header.height)
-    node.querySelector('.head').textContent = v.header.height
+    node.querySelector('.head').textContent = "#"+v.header.height
     node.querySelector('.desc>.validator>.link').textContent = `loom${v.header.proposer_address}`
     const since = node.querySelector('.desc>.since')
     since.textContent = getSinceFrom(v.header.time)
