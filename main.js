@@ -11,7 +11,7 @@ const cmds = {
 }
 
 let bs = {}
-
+let handle
 const afetch = async (url, options={})=>
   (await (await fetch(url, options)).json()).result
 
@@ -52,17 +52,23 @@ const updateHashLists = ({blockMetas})=> {
     list.append(node)
   })
 }
-const initApps = async ()=>{
-  console.log(+(new Date()), "init Apps", )
-  let handle = setInterval(async ()=>{
-    bs.status = await getChainStatus()
-    console.log("block status updated", bs)
-    if (bs.status["sync_info"] && bs.status["sync_info"]["latest_block_height"]) {
-        let bh = +bs.status["sync_info"]["latest_block_height"]
-        bs.blocks = await getBlocks({from: bh-9, to: +bh})
-        updateHashLists({blockMetas: bs.blocks.block_metas})
-    }
-  }, 1000)
-}
 
+const updateLoop = async ()=> {
+  bs.status = await getChainStatus()
+  if (bs.status["sync_info"] && bs.status["sync_info"]["latest_block_height"]) {
+    let bh = +bs.status["sync_info"]["latest_block_height"]
+    bs.blocks = await getBlocks({from: bh-9, to: +bh})
+    updateHashLists({blockMetas: bs.blocks.block_metas})
+  }
+}
+window.stopTimer=()=> {
+  clearInterval(handle)
+}
+window.startTimer=()=>{
+  handle = setInterval(updateLoop, 1000)
+}
+const initApps = async ()=>{
+  console.log(+(new Date()), "init Apps")
+  startTimer()
+}
 document.addEventListener('DOMContentLoaded', initApps);
