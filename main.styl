@@ -8,11 +8,13 @@ body
 .obj
   display none !important
 
-.nav
+nav,footer
   padding 1rem
   background-color #9AD1E1
   color black
   font-weight 900
+nav
+
   .logo
     margin 1rem
     display flex
@@ -20,6 +22,8 @@ body
       max-width 3rem
       height 3rem
       padding .5rem
+footer
+
 
 .container
   padding 1rem
@@ -66,3 +70,23 @@ body
 #blockDetail
   span
     margin-right 1em
+
+
+
+
+@media screen and (min-width: 600px){
+  .container {
+   -webkit-flex-direction: row;
+    flex-direction: row;
+  }
+  footer {
+    background-color: #ccc;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .container {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
