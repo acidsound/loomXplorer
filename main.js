@@ -54,6 +54,7 @@ const updateHashLists = ({blockMetas})=> {
     node.classList.add("item")
     node.setAttribute("data-id", v.header.height)
     node.querySelector('.head').textContent = "#"+v.header.height
+    node.querySelector('.desc>.transaction>span').textContent = v.header.num_txs
     node.querySelector('.desc>.validator>.link').textContent = `loom${v.header.proposer_address}`
     const since = node.querySelector('.desc>.since')
     since.textContent = getSinceFrom(v.header.time)
