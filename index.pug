@@ -4,49 +4,54 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     link(rel="stylesheet", href="https://cdn.jsdelivr.net/gh/acidsound/Tle-CSS@master/dist/tle.css")
-    link(rel="stylesheet", href="main.styl")
+    link(rel="stylesheet", href="style/main.styl")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Montserrat&display=swap")
     title LoomXplorer
   body
     nav
       .logo
         img(src="/public/loom.svg")
         h5 Block information
-  
+      
     .container
-    
       #blocks
-        div.header
+        //- 블록 리스트 헤더 
+        .blocks__header
           .row
             .head
               | Block Height
             .desc
-              | Detail
-        ul#blockMeta
+              | Description
+        //- 블록 리스트 메타      
+        ul#blocks__meta
           li.row.hash.obj
-            .head loading
+            .head 
             .desc
               .transaction
-              
               .validator
-                span.title Validator
-                span.link 
+                span.highlightedText 
+                  | Validator
+                span.link
               .since  
+        .slider.container
+          input#cb.tgl.tgl-skewed.js-updateLoop(type = "checkbox" checked= "true")
+          label.tgl-btn(data-tg-off = "Stop", data-tg-on = "Update", for = "cb")
+              
       #blockDetail
         h5
           | Transaction Detail
         .blockHeightHeader
-          span
+          span.highlightedText
             | Block Height
           span.blockHeight
           
         .txDetail
           .hash
-            span Hash
+            span.highlightedText Hash
             span.hash
           .result
-            span Result
+            span.highlightedText Result
             span.info
             span.data 
-    footer
-      span appsoulute
+    
     script(src="./main.js")

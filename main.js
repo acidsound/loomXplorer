@@ -1,6 +1,6 @@
 // for async/await
 import 'regenerator-runtime/runtime'
-import { formatDistance } from 'date-fns'
+import { formatDistanceStrict } from 'date-fns'
 
 const cmds = {
   "endpoint": "https://plasma.dappchains.com/rpc",
@@ -11,7 +11,8 @@ const cmds = {
 }
 
 let bs = {}
-
+let changeInput = document.querySelector('.js-updateLoop');
+let isStop = false
 const afetch = async (url, options={})=>
   (await (await fetch(url, options)).json()).result
 
@@ -27,19 +28,19 @@ const onBlockClickHandler = async e => {
   console.log("TxHash", txHash)
   const tx = await afetch(`${cmds.endpoint}${cmds.tx}0x${txHash}`)
   console.log("tx", tx)
-  document.querySelector("#blockDetail .blockHeight").textContent = dataId
+  document.querySelector("#blockDetail .blockHeight").textContent = "#" + dataId
   if (!tx) return
   document.querySelector("#blockDetail .txDetail>.hash>.hash").textContent = tx.hash
   document.querySelector("#blockDetail .txDetail>.result>.info").textContent = tx.tx_result.info
   document.querySelector("#blockDetail .txDetail>.result>.data").textContent = tx.tx_result.data
 }
 
-const getSinceFrom = since => formatDistance(Date.parse(since), new Date(), {includeSeconds:true})
+const getSinceFrom = since => formatDistanceStrict(Date.parse(since), new Date(), {includeSeconds:true})
 const updateHashLists = ({blockMetas})=> {
-  const list = document.querySelector("#blockMeta")
-  document.querySelectorAll("#blockMeta .item").forEach(o=>o.remove())
+  const list = document.querySelector("#blocks__meta")
+  document.querySelectorAll("#blocks__meta .item").forEach(o=>o.remove())
   blockMetas.forEach(v=>{
-    const node = document.querySelector("#blockMeta .hash.obj").cloneNode({deep: true});
+    const node = document.querySelector("#blocks__meta .hash.obj").cloneNode({deep: true});
     node.classList.remove("obj")
     node.classList.add("item")
     node.setAttribute("data-id", v.header.height)
@@ -52,17 +53,44 @@ const updateHashLists = ({blockMetas})=> {
     list.append(node)
   })
 }
-const initApps = async ()=>{
-  console.log(+(new Date()), "init Apps", )
-  let handle = setInterval(async ()=>{
-    bs.status = await getChainStatus()
-    console.log("block status updated", bs)
-    if (bs.status["sync_info"] && bs.status["sync_info"]["latest_block_height"]) {
-        let bh = +bs.status["sync_info"]["latest_block_height"]
-        bs.blocks = await getBlocks({from: bh-9, to: +bh})
-        updateHashLists({blockMetas: bs.blocks.block_metas})
-    }
-  }, 1000)
-}
 
+
+
+changeInput.onchange = function() {
+  let checked = document.querySelector('.js-updateLoop').checked
+  if (!checked) {
+    console.log(changeInput.value,"stopLoop")
+    window.stopLoop();
+  }
+  else {
+    console.log(changeInput.value,"startLoop")
+    window.startLoop();
+  }
+};
+
+const updateLoop = async ()=> {
+  bs.status = await getChainStatus()
+  if (bs.status["sync_info"] && bs.status["sync_info"]["latest_block_height"] && !isStop) {
+    let bh = +bs.status["sync_info"]["latest_block_height"]
+    bs.blocks = await getBlocks({from: bh-9, to: +bh})
+    updateHashLists({blockMetas: bs.blocks.block_metas})
+    if (!isStop ) {
+      nextLoop();
+    }
+  }
+}
+window.stopLoop=()=> {
+  isStop = true
+}
+window.startLoop=()=> {
+  isStop = false
+  updateLoop()
+}
+window.nextLoop=()=>{
+  setTimeout(updateLoop, 5000 )
+}
+const initApps = async ()=>{
+  console.log(+(new Date()), "init Apps")
+  updateLoop()
+}
 document.addEventListener('DOMContentLoaded', initApps);
