@@ -1,0 +1,23 @@
+// container attr //
+.container
+
+  display flex
+  justify-content center
+  .header
+    font-weight bolder
+    margin-bottom 2rem
+
+
+@media screen and (min-width: 600px)
+  .container,.row
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    div
+      flex 1 0 0
+
+
+
+@media screen and (max-width: 600px)
+  .container,.row 
+    -webkit-flex-direction: column;
+    flex-direction: column;
