@@ -62,12 +62,16 @@ const updateHashLists = ({blockMetas})=> {
     list.prepend(node)
   })
   document.querySelectorAll("#blocks__meta .item").forEach((o,k)=>{
-    const since = o.querySelector(".desc>.since")
-    since.textContent = getSinceFrom(since.getAttribute('data-since'))
     k>pageCnt && o.remove()
   })
 }
 
+const updateTime = ()=> {
+  document.querySelectorAll("#blocks__meta .item").forEach((o,k)=>{
+    const since = o.querySelector(".desc>.since")
+    since.textContent = getSinceFrom(since.getAttribute('data-since'))
+  })
+}
 
 
 changeInput.onchange = function() {
@@ -103,6 +107,7 @@ window.nextLoop=()=>{
 }
 const initApps = async ()=>{
   console.log(+(new Date()), "init Apps")
+  setInterval(updateTime, 1000)
   updateLoop()
 }
 document.addEventListener('DOMContentLoaded', initApps);
