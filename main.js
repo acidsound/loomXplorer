@@ -26,10 +26,18 @@ const onBlockClickHandler = async e => {
   const block = await afetch(`${cmds.endpoint}${cmds.block}${dataId}`)
   let txHash = block.block_meta.header.data_hash
   console.log("TxHash", txHash)
-  const tx = await afetch(`${cmds.endpoint}${cmds.tx}0x${txHash}`)
+  let tx = await afetch(`${cmds.endpoint}${cmds.tx}0x${txHash}`)
   console.log("tx", tx)
   document.querySelector("#blockDetail .blockHeight").textContent = "#" + dataId
-  if (!tx) return
+  if (!tx) {
+    tx = {
+      hash: "",
+      tx_result: {
+        info: "",
+        data: "",
+      }
+    }
+  }
   document.querySelector("#blockDetail .txDetail>.hash>.hash").textContent = tx.hash
   document.querySelector("#blockDetail .txDetail>.result>.info").textContent = tx.tx_result.info
   document.querySelector("#blockDetail .txDetail>.result>.data").textContent = tx.tx_result.data
