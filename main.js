@@ -26,9 +26,7 @@ const onBlockClickHandler = async e => {
   const dataId = t.getAttribute('data-id')
   const block = await aFetch(`${APIs.endpoint}${APIs.block}${dataId}`)
   let txHash = block.block_meta.header.data_hash
-  console.log("TxHash", txHash)
   let tx = await aFetch(`${APIs.endpoint}${APIs.tx}0x${txHash}`)
-  console.log("tx", tx)
   document.querySelector("#blockDetail .blockHeight").textContent = "#" + dataId
   if (!tx) {
     tx = {
@@ -50,7 +48,6 @@ const updateHashLists = ({blockMetas})=> {
   const lastBlockheightElement = document.querySelector("#blocks__meta>.row.hash.item")
   const lastBlockheight = lastBlockheightElement && lastBlockheightElement.getAttribute('data-id') || 0
   blockMetas = blockMetas.filter(o=>o.header.height>lastBlockheight)
-  console.log(blockMetas.length)
   blockMetas.reverse().forEach(v=>{
     const node = document.querySelector("#blocks__meta .hash.obj").cloneNode({deep: true});
     node.classList.remove("obj")
@@ -74,11 +71,9 @@ const updateHashLists = ({blockMetas})=> {
 changeInput.onchange = function() {
   let checked = document.querySelector('.js-updateLoop').checked
   if (!checked) {
-    console.log(changeInput.value,"stopLoop")
     window.stopLoop();
   }
   else {
-    console.log(changeInput.value,"startLoop")
     window.startLoop();
   }
 };
