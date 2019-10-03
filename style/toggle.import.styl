@@ -1,5 +1,5 @@
 .tgl
-  visibility: hidden
+  display none
   & + .tgl-btn
     outline 0
     display block
@@ -7,53 +7,51 @@
     height 2em
     position relative
     cursor pointer
+    -webkit-user-select none
+    -moz-user-select none
+    -ms-user-select none
     user-select none
     &:after
       left 0
+      top -100%
     &:before
       display none
   &:checked
     & + .tgl-btn
       &:after
         left 50%
-// .tgl, .tgl:after, .tgl:before, .tgl *, .tgl *:after, .tgl *:before, .tgl + .tgl-btn
-//   box-sizing border-box
-// .tgl::selection, .tgl:after::selection, .tgl:before::selection, .tgl *::selection, .tgl *:after::selection, .tgl *:before::selection, .tgl + .tgl-btn::selection
-//   background none
-.tgl-skewed
+        top -100%
+
+
+.tgl, .tgl:after, .tgl:before, .tgl *, .tgl *:after, .tgl *:before, .tgl + .tgl-btn
+  -moz-box-sizing border-box
+  box-sizing border-box
+
+.tgl::-moz-selection, .tgl:after::-moz-selection, .tgl:before::-moz-selection, .tgl *::-moz-selection, .tgl *:after::-moz-selection, .tgl *:before::-moz-selection, .tgl + .tgl-btn::-moz-selection
+  background none
+
+.tgl::selection, .tgl:after::selection, .tgl:before::selection, .tgl *::selection, .tgl *:after::selection, .tgl *:before::selection, .tgl + .tgl-btn::selection
+  background none
+
+.tgl + .tgl-btn:after, .tgl + .tgl-btn:before
+  position relative
+  display block
+  content ""
+  width 50%
+  height 100%
+
+.tgl-light
   & + .tgl-btn
-    overflow hidden
-    backface-visibility hidden
-    transition all 0.2s ease
-    font-family sans-serif
-    background #888
+    background #f0f0f0
+    border-radius 2em
+    padding 2px
+    -webkit-transition all .4s ease
+    transition all .4s ease
     &:after
-      left 100%
-      content attr(data-tg-on)
-    &:before
-      left 0
-      content attr(data-tg-off)
-    &:active
-      background #888
-      &:before
-        left -10%
+      border-radius 50%
+      background #fff
+      -webkit-transition all .2s ease
+      transition all .2s ease
   &:checked
     & + .tgl-btn
-      background #86d993
-      &:before
-        left -100%
-      &:after
-        left 0
-      &:active
-        &:after
-          left 10%
-.tgl-skewed + .tgl-btn:after, .tgl-skewed + .tgl-btn:before
-  display inline-block
-  transition all 0.2s ease
-  width 100%
-  text-align center
-  position absolute
-  line-height 2em
-  font-weight bold
-  color #fff
-  text-shadow 0 1px 0 rgba(0, 0, 0, .4)
+      background #7fc777
