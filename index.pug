@@ -14,8 +14,8 @@ html
         img(src="/public/loom.svg")
         h5 Block information
       .slider
-        input#cb.tgl.tgl-skewed.js-updateLoop(type = "checkbox" checked= "true")
-        label.tgl-btn(data-tg-off = "resume", data-tg-on = "stop", for = "cb")      
+        input#cb-update.tgl.tgl-light.js-updateLoop(type = "checkbox" checked= "true" style="display:none")
+        label.tgl-btn(for = "cb-update")      
     .container
       #blocks
         //- 블록 리스트 헤더 
@@ -57,10 +57,10 @@ html
             span.data 
     
     footer 
-      | Official Site : &nbsp; 
-      a(href="https://loomx.io/" rel="nofollow" target="_blank") 
-        | https://loomx.io/
+      small 
+        | Official Site : &nbsp; 
+        a(href="https://loomx.io/" rel="nofollow" target="_blank") 
+          | https://loomx.io/
 
 
     script(src="./main.js")
-    script(src="./oo.js")
