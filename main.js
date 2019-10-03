@@ -24,9 +24,9 @@ const getBlocks = async ({from, to})=>
 const onBlockClickHandler = async e => {
   const t = e.currentTarget
   const dataId = t.getAttribute('data-id')
-  const block = await aFetch(`${APIs.endpoint}${APIs.block}${dataId}`)
-  let txHash = block.block_meta.header.data_hash
-  let tx = await aFetch(`${APIs.endpoint}${APIs.tx}0x${txHash}`)
+  let tx = await aFetch(`${APIs.endpoint}${APIs.tx}0x${t.getAttribute('data-hash')}`)
+  document.querySelector("#blockDetail").classList.remove("chosen")
+  document.querySelector("#blockDetail").classList.add("chosen")
   document.querySelector("#blockDetail .blockHeight").textContent = "#" + dataId
   if (!tx) {
     tx = {
@@ -40,8 +40,6 @@ const onBlockClickHandler = async e => {
   document.querySelector("#blockDetail .txDetail>.hash>.hash").textContent = tx.hash
   document.querySelector("#blockDetail .txDetail>.result>.info").textContent = tx.tx_result.info
   document.querySelector("#blockDetail .txDetail>.result>.data").textContent = tx.tx_result.data
-  document.querySelector("#blockDetail").classList.remove("chosen")
-  document.querySelector("#blockDetail").classList.add("chosen")
 }
 
 const getSinceFrom = since => formatDistanceStrict(Date.parse(since), new Date(), {includeSeconds:true})
@@ -55,6 +53,7 @@ const updateHashLists = ({blockMetas})=> {
     node.classList.remove("obj")
     node.classList.add("item")
     node.setAttribute("data-id", v.header.height)
+    node.setAttribute('data-hash', v.header.data_hash)
     node.querySelector('.head').textContent = "#"+v.header.height
     node.querySelector('.desc>.transaction>span').textContent = v.header.num_txs
     node.querySelector('.desc>.validator>.link').textContent = `loom${v.header.proposer_address}`
