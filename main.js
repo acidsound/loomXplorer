@@ -40,6 +40,8 @@ const onBlockClickHandler = async e => {
   document.querySelector("#blockDetail .txDetail>.hash>.hash").textContent = tx.hash
   document.querySelector("#blockDetail .txDetail>.result>.info").textContent = tx.tx_result.info
   document.querySelector("#blockDetail .txDetail>.result>.data").textContent = tx.tx_result.data
+  document.querySelector("#blockDetail").classList.remove("chosen")
+  document.querySelector("#blockDetail").classList.add("chosen")
 }
 
 const getSinceFrom = since => formatDistanceStrict(Date.parse(since), new Date(), {includeSeconds:true})
@@ -110,5 +112,8 @@ const initApps = async ()=>{
   console.log(+(new Date()), "init Apps")
   setInterval(updateTime, 1000)
   updateLoop()
+  document.body.addEventListener("click", ()=>{
+    document.querySelector("#blockDetail").classList.remove("chosen")
+  })
 }
 document.addEventListener('DOMContentLoaded', initApps);
