@@ -54,18 +54,25 @@ const updateHashLists = ({blockMetas})=> {
     node.classList.add("item")
     node.setAttribute("data-id", v.header.height)
     node.querySelector('.head').textContent = "#"+v.header.height
+    node.querySelector('.desc>.transaction>span').textContent = v.header.num_txs
     node.querySelector('.desc>.validator>.link').textContent = `loom${v.header.proposer_address}`
     const since = node.querySelector('.desc>.since')
     since.textContent = getSinceFrom(v.header.time)
-    since.setAttribute('data-since', getSinceFrom(v.header.time))
+    since.setAttribute('data-since', v.header.time)
     node.addEventListener("click", onBlockClickHandler)
     list.prepend(node)
   })
-  document.querySelectorAll("#blocks__meta .item").forEach((o,k)=>
+  document.querySelectorAll("#blocks__meta .item").forEach((o,k)=>{
     k>pageCnt && o.remove()
-  )
+  })
 }
 
+const updateTime = ()=> {
+  document.querySelectorAll("#blocks__meta .item").forEach((o,k)=>{
+    const since = o.querySelector(".desc>.since")
+    since.textContent = getSinceFrom(since.getAttribute('data-since'))
+  })
+}
 
 
 changeInput.onchange = function() {
@@ -101,6 +108,7 @@ window.nextLoop=()=>{
 }
 const initApps = async ()=>{
   console.log(+(new Date()), "init Apps")
+  setInterval(updateTime, 1000)
   updateLoop()
 }
 document.addEventListener('DOMContentLoaded', initApps);
