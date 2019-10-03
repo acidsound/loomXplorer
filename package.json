@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.html",
   "scripts": {
+    "start": "parcel index.pug",
     "build": "parcel build index.pug"
   },
   "license": "MIT",
