@@ -10,14 +10,25 @@
 
 @media screen and (min-width: 600px)
   .container,.row
-    -webkit-flex-direction: row;
-    flex-direction: row;
+    -webkit-flex-direction row
+    flex-direction row
     div
       flex 1 0 0
 
 
 
 @media screen and (max-width: 600px)
-  .container,.row 
-    -webkit-flex-direction: column;
-    flex-direction: column;
+  .container,.row
+    -webkit-flex-direction column
+    flex-direction column
+  .container
+    #blockDetail
+      position absolute
+      top 6em
+      right 1em
+      bottom 1em
+      background-color #fff
+      left 1em
+      display none
+      &.chosen
+        display block !important
